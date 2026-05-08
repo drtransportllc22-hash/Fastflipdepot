@@ -1,1 +1,1737 @@
-# Fastflipdepot
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FastFlipDepot - Baltimore's destination for fast-moving essentials, grooming tools, small appliances, and custom FreshWave Scents car air fresheners. Local delivery available.">
+    <meta name="keywords" content="FastFlipDepot, FreshWave Scents, Baltimore, Dundalk, car air fresheners, grooming tools, small appliances, local delivery, custom bundles">
+    <title>FastFlipDepot | Fast-Moving Essentials & FreshWave Scents</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ffblack: '#000000',
+                        ffyellow: '#FFD700',
+                        ffyellowdark: '#E6C200',
+                        ffwhite: '#FFFFFF',
+                        fwgreen: '#00C853',
+                        fwgreenlight: '#00E676',
+                        fwgreendark: '#00A844',
+                        fwyellowgreen: '#76FF03',
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                        'space': ['Space Grotesk', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        :root {
+            --ffblack: #000000;
+            --ffyellow: #FFD700;
+            --ffwhite: #FFFFFF;
+            --fwgreen: #00C853;
+            --fwgreenlight: #00E676;
+            --fwgreendark: #00A844;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--ffblack);
+            color: var(--ffwhite);
+            overflow-x: hidden;
+        }
+        
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Page transitions */
+        .page-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .page-section.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Hero gradient */
+        .hero-gradient {
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+        }
+        
+        .freshwave-gradient {
+            background: linear-gradient(135deg, #00A844 0%, #00E676 50%, #76FF03 100%);
+        }
+        
+        /* Glow effects */
+        .yellow-glow {
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+        }
+        
+        .green-glow {
+            box-shadow: 0 0 30px rgba(0, 200, 83, 0.3);
+        }
+        
+        /* Product card hover */
+        .product-card {
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 215, 0, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .freshwave-card:hover {
+            border-color: rgba(0, 200, 83, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 200, 83, 0.1);
+        }
+        
+        /* WhatsApp button pulse */
+        .whatsapp-pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+        
+        /* Bundle item selection */
+        .bundle-item {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .bundle-item.selected {
+            border-color: var(--ffyellow) !important;
+            background: rgba(255, 215, 0, 0.1) !important;
+        }
+        
+        .freshwave-item.selected {
+            border-color: var(--fwgreen) !important;
+            background: rgba(0, 200, 83, 0.1) !important;
+        }
+        
+        /* Mobile menu */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        
+        /* Marquee */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .marquee-content {
+            animation: marquee 30s linear infinite;
+        }
+        
+        /* Form inputs */
+        .form-input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--ffyellow);
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+        }
+        
+        .green-input:focus {
+            border-color: var(--fwgreen);
+            box-shadow: 0 0 0 3px rgba(0, 200, 83, 0.1);
+        }
+        
+        /* Scroll indicator */
+        .scroll-progress {
+            position: fixed;
+            top: 64px;
+            left: 0;
+            height: 2px;
+            background: var(--ffyellow);
+            z-index: 40;
+            transition: width 0.1s linear;
+        }
+        
+        /* Toast notification */
+        .toast {
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        /* Category filter */
+        .category-btn {
+            transition: all 0.2s ease;
+        }
+        
+        .category-btn.active {
+            background: var(--ffyellow);
+            color: var(--ffblack);
+        }
+    </style>
+</head>
+<body class="no-scrollbar">
+
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-ffblack/90 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <a href="#home" class="flex items-center space-x-2 group">
+                    <div class="w-8 h-8 bg-ffyellow rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i data-lucide="zap" class="w-5 h-5 text-ffblack"></i>
+                    </div>
+                    <span class="font-space font-bold text-lg">FastFlip<span class="text-ffyellow">Depot</span></span>
+                </a>
+                
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center space-x-1">
+                    <a href="#home" class="nav-link px-4 py-2 text-sm font-medium text-white/70 hover:text-ffyellow transition-colors rounded-lg hover:bg-white/5">Home</a>
+                    <a href="#freshwave" class="nav-link px-4 py-2 text-sm font-medium text-white/70 hover:text-fwgreen transition-colors rounded-lg hover:bg-white/5">FreshWave Scents</a>
+                    <a href="#products" class="nav-link px-4 py-2 text-sm font-medium text-white/70 hover:text-ffyellow transition-colors rounded-lg hover:bg-white/5">Products</a>
+                    <a href="#bundles" class="nav-link px-4 py-2 text-sm font-medium text-white/70 hover:text-ffyellow transition-colors rounded-lg hover:bg-white/5">Build a Bundle</a>
+                    <a href="#about" class="nav-link px-4 py-2 text-sm font-medium text-white/70 hover:text-ffyellow transition-colors rounded-lg hover:bg-white/5">About</a>
+                    <a href="#contact" class="nav-link px-4 py-2 text-sm font-medium text-white/70 hover:text-ffyellow transition-colors rounded-lg hover:bg-white/5">Contact</a>
+                </div>
+                
+                <!-- Right side buttons -->
+                <div class="flex items-center space-x-3">
+                    <a href="https://wa.me/14105551234" target="_blank" class="hidden sm:flex items-center space-x-2 px-4 py-2 bg-green-500 hover:bg-green-600 text-white text-sm font-medium rounded-lg transition-colors">
+                        <i data-lucide="message-circle" class="w-4 h-4"></i>
+                        <span>WhatsApp</span>
+                    </a>
+                    <button id="mobileMenuBtn" class="md:hidden p-2 text-white/70 hover:text-white transition-colors">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 bottom-0 w-80 bg-ffblack/95 backdrop-blur-xl z-50 border-l border-white/10">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-8">
+                <span class="font-space font-bold text-lg">Menu</span>
+                <button id="closeMobileMenu" class="p-2 text-white/70 hover:text-white transition-colors">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <div class="space-y-2">
+                <a href="#home" class="mobile-nav-link block px-4 py-3 text-white/70 hover:text-ffyellow hover:bg-white/5 rounded-lg transition-all">Home</a>
+                <a href="#freshwave" class="mobile-nav-link block px-4 py-3 text-white/70 hover:text-fwgreen hover:bg-white/5 rounded-lg transition-all">FreshWave Scents</a>
+                <a href="#products" class="mobile-nav-link block px-4 py-3 text-white/70 hover:text-ffyellow hover:bg-white/5 rounded-lg transition-all">Products</a>
+                <a href="#bundles" class="mobile-nav-link block px-4 py-3 text-white/70 hover:text-ffyellow hover:bg-white/5 rounded-lg transition-all">Build a Bundle</a>
+                <a href="#about" class="mobile-nav-link block px-4 py-3 text-white/70 hover:text-ffyellow hover:bg-white/5 rounded-lg transition-all">About</a>
+                <a href="#contact" class="mobile-nav-link block px-4 py-3 text-white/70 hover:text-ffyellow hover:bg-white/5 rounded-lg transition-all">Contact</a>
+            </div>
+            <div class="mt-8 space-y-3">
+                <a href="https://wa.me/14105551234" target="_blank" class="flex items-center justify-center space-x-2 w-full px-4 py-3 bg-green-500 hover:bg-green-600 text-white font-medium rounded-lg transition-colors">
+                    <i data-lucide="message-circle" class="w-5 h-5"></i>
+                    <span>WhatsApp Us</span>
+                </a>
+                <a href="https://www.whatnot.com" target="_blank" class="flex items-center justify-center space-x-2 w-full px-4 py-3 bg-white/10 hover:bg-white/20 text-white font-medium rounded-lg transition-colors">
+                    <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                    <span>Whatnot Shop</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id="mobileOverlay" class="fixed inset-0 bg-black/50 z-40 hidden"></div>
+
+    <!-- HOME SECTION -->
+    <section id="home" class="page-section active min-h-screen pt-16">
+        <!-- Hero -->
+        <div class="hero-gradient relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 py-20 md:py-32 relative z-10">
+                <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+                    <div class="space-y-6 md:space-y-8">
+                        <div class="inline-flex items-center space-x-2 px-4 py-2 bg-ffyellow/10 border border-ffyellow/30 rounded-full">
+                            <div class="w-2 h-2 bg-ffyellow rounded-full animate-pulse"></div>
+                            <span class="text-ffyellow text-sm font-medium">Local Baltimore Business</span>
+                        </div>
+                        
+                        <h1 class="font-space text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
+                            Fast-Moving<br>
+                            <span class="text-ffyellow">Essentials</span><br>
+                            Delivered Local
+                        </h1>
+                        
+                        <p class="text-white/60 text-lg md:text-xl max-w-lg">
+                            Premium grooming tools, small appliances, and custom car air fresheners. Fast delivery to Baltimore & Dundalk.
+                        </p>
+                        
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <a href="#products" class="inline-flex items-center justify-center space-x-2 px-8 py-4 bg-ffyellow hover:bg-ffyellowdark text-ffblack font-semibold rounded-xl transition-all hover:scale-105 yellow-glow">
+                                <span>Shop Now</span>
+                                <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                            </a>
+                            <a href="#bundles" class="inline-flex items-center justify-center space-x-2 px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl transition-all border border-white/20">
+                                <i data-lucide="package" class="w-5 h-5"></i>
+                                <span>Build a Bundle</span>
+                            </a>
+                        </div>
+                        
+                        <div class="flex items-center space-x-6 text-sm text-white/50">
+                            <div class="flex items-center space-x-2">
+                                <i data-lucide="truck" class="w-4 h-4"></i>
+                                <span>Local Delivery</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i data-lucide="shield-check" class="w-4 h-4"></i>
+                                <span>Quality Guaranteed</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i data-lucide="star" class="w-4 h-4"></i>
+                                <span>Top Rated</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Hero Image -->
+                    <div class="relative">
+                        <div class="aspect-square rounded-2xl overflow-hidden border-2 border-white/10 yellow-glow">
+                            <img src="https://picsum.photos/seed/fastflip-hero/800/800.jpg" alt="FastFlipDepot Products" class="w-full h-full object-cover">
+                        </div>
+                        <div class="absolute -bottom-4 -left-4 bg-ffyellow text-ffblack px-6 py-3 rounded-xl font-bold text-lg">
+                            🚚 Free Local Delivery
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Background decoration -->
+            <div class="absolute top-20 right-20 w-96 h-96 bg-ffyellow/5 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-20 left-20 w-72 h-72 bg-ffyellow/5 rounded-full blur-3xl"></div>
+        </div>
+        
+        <!-- Marquee -->
+        <div class="bg-ffyellow py-3 overflow-hidden">
+            <div class="marquee-content flex items-center space-x-8 whitespace-nowrap">
+                <span class="text-ffblack font-bold text-sm">⚡ FAST FLIP DEPOT</span>
+                <span class="text-ffblack/60">•</span>
+                <span class="text-ffblack font-bold text-sm">🌿 FRESHWAVE SCENTS</span>
+                <span class="text-ffblack/60">•</span>
+                <span class="text-ffblack font-bold text-sm">🚚 BALTIMORE DELIVERY</span>
+                <span class="text-ffblack/60">•</span>
+                <span class="text-ffblack font-bold text-sm">💎 PREMIUM QUALITY</span>
+                <span class="text-ffblack/60">•</span>
+                <span class="text-ffblack font-bold text-sm">📦 CUSTOM BUNDLES</span>
+                <span class="text-ffblack/60">•</span>
+                <span class="text-ffblack font-bold text-sm">⚡ FAST FLIP DEPOT</span>
+                <span class="text-ffblack/60">•</span>
+                <span class="text-ffblack font-bold text-sm">🌿 FRESHWAVE SCENTS</span>
+                <span class="text-ffblack/60">•</span>
+                <span class="text-ffblack font-bold text-sm">🚚 BALTIMORE DELIVERY</span>
+                <span class="text-ffblack/60">•</span>
+                <span class="text-ffblack font-bold text-sm">💎 PREMIUM QUALITY</span>
+                <span class="text-ffblack/60">•</span>
+                <span class="text-ffblack font-bold text-sm">📦 CUSTOM BUNDLES</span>
+            </div>
+        </div>
+        
+        <!-- Featured Products -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-16 md:py-24">
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between mb-10">
+                <div>
+                    <span class="text-ffyellow text-sm font-semibold uppercase tracking-wider">Featured</span>
+                    <h2 class="font-space text-3xl md:text-4xl font-bold mt-2">Popular Products</h2>
+                </div>
+                <a href="#products" class="mt-4 md:mt-0 inline-flex items-center space-x-2 text-ffyellow hover:text-ffyellowdark transition-colors">
+                    <span class="font-medium">View All Products</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                <div class="product-card rounded-xl overflow-hidden bg-white/5 group">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="https://picsum.photos/seed/clippers/400/400.jpg" alt="Professional Clippers" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-sm mb-1">Professional Clippers</h3>
+                        <p class="text-ffyellow font-bold">$29.99</p>
+                    </div>
+                </div>
+                
+                <div class="product-card rounded-xl overflow-hidden bg-white/5 group">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="https://picsum.photos/seed/trimmer/400/400.jpg" alt="Precision Trimmer" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-sm mb-1">Precision Trimmer</h3>
+                        <p class="text-ffyellow font-bold">$24.99</p>
+                    </div>
+                </div>
+                
+                <div class="product-card rounded-xl overflow-hidden bg-white/5 group">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="https://picsum.photos/seed/electricbrush/400/400.jpg" alt="Electric Brush" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-sm mb-1">Electric Brush</h3>
+                        <p class="text-ffyellow font-bold">$19.99</p>
+                    </div>
+                </div>
+                
+                <div class="product-card rounded-xl overflow-hidden bg-white/5 group">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="https://picsum.photos/seed/oralcare/400/400.jpg" alt="Oral Care Kit" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-sm mb-1">Oral Care Kit</h3>
+                        <p class="text-ffyellow font-bold">$15.99</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- FreshWave Highlight -->
+        <div class="bg-gradient-to-b from-black via-fwgreendark/10 to-black">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 py-16 md:py-24">
+                <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+                    <div class="order-2 md:order-1">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="aspect-square rounded-xl overflow-hidden border-2 border-fwgreen/30">
+                                <img src="https://picsum.photos/seed/freshener1/400/400.jpg" alt="FreshWave Scents" class="w-full h-full object-cover">
+                            </div>
+                            <div class="aspect-square rounded-xl overflow-hidden border-2 border-fwgreen/30 mt-8">
+                                <img src="https://picsum.photos/seed/freshener2/400/400.jpg" alt="Custom Scents" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="order-1 md:order-2 space-y-6">
+                        <div class="inline-flex items-center space-x-2 px-4 py-2 bg-fwgreen/10 border border-fwgreen/30 rounded-full">
+                            <span class="text-fwgreenlight text-sm font-medium">🌿 New Product Line</span>
+                        </div>
+                        
+                        <h2 class="font-space text-3xl md:text-5xl font-bold">
+                            FreshWave<br>
+                            <span class="text-fwgreenlight">Scents</span>
+                        </h2>
+                        
+                        <p class="text-white/60 text-lg">
+                            Custom car air fresheners with premium fragrances. Choose from our collection or create your own signature scent.
+                        </p>
+                        
+                        <div class="space-y-3">
+                            <div class="flex items-center space-x-3">
+                                <i data-lucide="check-circle" class="w-5 h-5 text-fwgreen"></i>
+                                <span class="text-white/70">20+ Premium Fragrances</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i data-lucide="check-circle" class="w-5 h-5 text-fwgreen"></i>
+                                <span class="text-white/70">Custom Scent Blending</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i data-lucide="check-circle" class="w-5 h-5 text-fwgreen"></i>
+                                <span class="text-white/70">Long-Lasting 30+ Days</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i data-lucide="check-circle" class="w-5 h-5 text-fwgreen"></i>
+                                <span class="text-white/70">Stylish Designs</span>
+                            </div>
+                        </div>
+                        
+                        <a href="#freshwave" class="inline-flex items-center space-x-2 px-8 py-4 freshwave-gradient text-ffblack font-semibold rounded-xl transition-all hover:scale-105 green-glow">
+                            <span>Explore FreshWave</span>
+                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Trust Badges -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-16">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="text-center p-6 rounded-xl bg-white/5 border border-white/10">
+                    <i data-lucide="truck" class="w-8 h-8 text-ffyellow mx-auto mb-3"></i>
+                    <h3 class="font-semibold mb-1">Local Delivery</h3>
+                    <p class="text-white/50 text-sm">Baltimore & Dundalk</p>
+                </div>
+                <div class="text-center p-6 rounded-xl bg-white/5 border border-white/10">
+                    <i data-lucide="shield-check" class="w-8 h-8 text-ffyellow mx-auto mb-3"></i>
+                    <h3 class="font-semibold mb-1">Quality Tested</h3>
+                    <p class="text-white/50 text-sm">Every Product Verified</p>
+                </div>
+                <div class="text-center p-6 rounded-xl bg-white/5 border border-white/10">
+                    <i data-lucide="package" class="w-8 h-8 text-ffyellow mx-auto mb-3"></i>
+                    <h3 class="font-semibold mb-1">Custom Bundles</h3>
+                    <p class="text-white/50 text-sm">Build Your Own</p>
+                </div>
+                <div class="text-center p-6 rounded-xl bg-white/5 border border-white/10">
+                    <i data-lucide="heart" class="w-8 h-8 text-ffyellow mx-auto mb-3"></i>
+                    <h3 class="font-semibold mb-1">Family Owned</h3>
+                    <p class="text-white/50 text-sm">Local Since Day 1</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FRESHWAVE SCENTS SECTION -->
+    <section id="freshwave" class="page-section min-h-screen pt-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-16">
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <div class="inline-flex items-center space-x-2 px-4 py-2 bg-fwgreen/10 border border-fwgreen/30 rounded-full mb-4">
+                    <span class="text-fwgreenlight text-sm font-medium">🌿 FreshWave Scents</span>
+                </div>
+                <h1 class="font-space text-4xl md:text-5xl font-bold mb-4">Premium Car <span class="text-fwgreenlight">Air Fresheners</span></h1>
+                <p class="text-white/60 text-lg max-w-2xl mx-auto">Transform your ride with our long-lasting, premium fragrances. Choose from our curated collection or create your own custom blend.</p>
+            </div>
+            
+            <!-- Scent Designs -->
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 mb-16">
+                <div class="product-card freshwave-card rounded-xl overflow-hidden bg-white/5 group">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="https://picsum.photos/seed/scent-lemongrass/400/400.jpg" alt="Lemongrass" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-sm mb-1">Lemongrass</h3>
+                        <p class="text-white/50 text-xs mb-2">Fresh & Citrusy</p>
+                        <p class="text-fwgreen font-bold">$8.99</p>
+                    </div>
+                </div>
+                
+                <div class="product-card freshwave-card rounded-xl overflow-hidden bg-white/5 group">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="https://picsum.photos/seed/scent-lavender/400/400.jpg" alt="Lavender" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-sm mb-1">Lavender</h3>
+                        <p class="text-white/50 text-xs mb-2">Calm & Relaxing</p>
+                        <p class="text-fwgreen font-bold">$8.99</p>
+                    </div>
+                </div>
+                
+                <div class="product-card freshwave-card rounded-xl overflow-hidden bg-white/5 group">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="https://picsum.photos/seed/scent-ocean/400/400.jpg" alt="Ocean Breeze" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-sm mb-1">Ocean Breeze</h3>
+                        <p class="text-white/50 text-xs mb-2">Clean & Crisp</p>
+                        <p class="text-fwgreen font-bold">$8.99</p>
+                    </div>
+                </div>
+                
+                <div class="product-card freshwave-card rounded-xl overflow-hidden bg-white/5 group">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="https://picsum.photos/seed/scent-vanilla/400/400.jpg" alt="Vanilla" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-sm mb-1">Vanilla</h3>
+                        <p class="text-white/50 text-xs mb-2">Sweet & Warm</p>
+                        <p class="text-fwgreen font-bold">$8.99</p>
+                    </div>
+                </div>
+                
+                <div class="product-card freshwave-card rounded-xl overflow-hidden bg-white/5 group">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="https://picsum.photos/seed/scent-pine/400/400.jpg" alt="Pine Forest" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-sm mb-1">Pine Forest</h3>
+                        <p class="text-white/50 text-xs mb-2">Earthy & Woodsey</p>
+                        <p class="text-fwgreen font-bold">$8.99</p>
+                    </div>
+                </div>
+                
+                <div class="product-card freshwave-card rounded-xl overflow-hidden bg-white/5 group">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="https://picsum.photos/seed/scent-mint/400/400.jpg" alt="Cool Mint" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-sm mb-1">Cool Mint</h3>
+                        <p class="text-white/50 text-xs mb-2">Refreshing & Icy</p>
+                        <p class="text-fwgreen font-bold">$8.99</p>
+                    </div>
+                </div>
+                
+                <div class="product-card freshwave-card rounded-xl overflow-hidden bg-white/5 group">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="https://picsum.photos/seed/scent-jasmine/400/400.jpg" alt="Jasmine" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-sm mb-1">Jasmine</h3>
+                        <p class="text-white/50 text-xs mb-2">Floral & Elegant</p>
+                        <p class="text-fwgreen font-bold">$8.99</p>
+                    </div>
+                </div>
+                
+                <div class="product-card freshwave-card rounded-xl overflow-hidden bg-white/5 group border-2 border-dashed border-fwgreen/30 flex items-center justify-center">
+                    <div class="p-8 text-center">
+                        <i data-lucide="plus" class="w-8 h-8 text-fwgreen mx-auto mb-3"></i>
+                        <h3 class="font-semibold text-sm mb-1">Custom Scent</h3>
+                        <p class="text-white/50 text-xs">Create Your Own</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Custom Scent Request Form -->
+            <div class="max-w-2xl mx-auto">
+                <div class="bg-white/5 border border-fwgreen/30 rounded-2xl p-6 md:p-8">
+                    <h2 class="font-space text-2xl font-bold mb-2">Request Custom Scent</h2>
+                    <p class="text-white/50 mb-6">Tell us your dream fragrance and we'll make it happen</p>
+                    
+                    <form id="freshwaveForm" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Your Name *</label>
+                            <input type="text" required class="form-input green-input w-full px-4 py-3 rounded-lg text-white" placeholder="John Doe">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Phone or Email *</label>
+                            <input type="text" required class="form-input green-input w-full px-4 py-3 rounded-lg text-white" placeholder="Phone or email">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Describe Your Custom Scent *</label>
+                            <textarea required rows="4" class="form-input green-input w-full px-4 py-3 rounded-lg text-white resize-none" placeholder="e.g., A mix of vanilla and cinnamon with a hint of orange..."></textarea>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Quantity</label>
+                            <select class="form-input green-input w-full px-4 py-3 rounded-lg text-white">
+                                <option value="1">1 Freshener</option>
+                                <option value="2">2 Fresheners</option>
+                                <option value="3">3 Fresheners</option>
+                                <option value="5">5 Fresheners (Save 10%)</option>
+                                <option value="10">10 Fresheners (Save 20%)</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="w-full flex items-center justify-center space-x-2 px-8 py-4 freshwave-gradient text-ffblack font-semibold rounded-xl transition-all hover:scale-[1.02]">
+                            <i data-lucide="send" class="w-5 h-5"></i>
+                            <span>Submit Request</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Delivery Info -->
+            <div class="mt-16 grid md:grid-cols-2 gap-6">
+                <div class="bg-white/5 border border-white/10 rounded-xl p-6">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <i data-lucide="truck" class="w-6 h-6 text-fwgreen"></i>
+                        <h3 class="font-semibold text-lg">Local Delivery</h3>
+                    </div>
+                    <p class="text-white/60 mb-3">Free delivery on orders over $25 within our service area:</p>
+                    <ul class="space-y-2 text-white/50 text-sm">
+                        <li>• Baltimore City</li>
+                        <li>• Dundalk</li>
+                        <li>• Essex</li>
+                        <li>• Middle River</li>
+                        <li>• Rosedale</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white/5 border border-white/10 rounded-xl p-6">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <i data-lucide="clock" class="w-6 h-6 text-fwgreen"></i>
+                        <h3 class="font-semibold text-lg">Delivery Times</h3>
+                    </div>
+                    <p class="text-white/60 mb-3">Fast turnaround on all orders:</p>
+                    <ul class="space-y-2 text-white/50 text-sm">
+                        <li>• Standard: 1-2 business days</li>
+                        <li>• Express: Same day (order by 2pm)</li>
+                        <li>• Custom scents: 2-3 business days</li>
+                        <li>• Weekend delivery available</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCTS SECTION -->
+    <section id="products" class="page-section min-h-screen pt-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-16">
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <span class="text-ffyellow text-sm font-semibold uppercase tracking-wider">Our Collection</span>
+                <h1 class="font-space text-4xl md:text-5xl font-bold mt-2 mb-4">Fast-Moving <span class="text-ffyellow">Essentials</span></h1>
+                <p class="text-white/60 text-lg max-w-2xl mx-auto">Quality products at competitive prices. Everything you need, delivered fast.</p>
+            </div>
+            
+            <!-- Category Filters -->
+            <div class="flex flex-wrap justify-center gap-2 mb-10">
+                <button class="category-btn active px-5 py-2 rounded-full text-sm font-medium border border-white/20" data-category="all">All Products</button>
+                <button class="category-btn px-5 py-2 rounded-full text-sm font-medium border border-white/20 text-white/70" data-category="grooming">Grooming</button>
+                <button class="category-btn px-5 py-2 rounded-full text-sm font-medium border border-white/20 text-white/70" data-category="appliances">Small Appliances</button>
+                <button class="category-btn px-5 py-2 rounded-full text-sm font-medium border border-white/20 text-white/70" data-category="oral">Oral Care</button>
+                <button class="category-btn px-5 py-2 rounded-full text-sm font-medium border border-white/20 text-white/70" data-category="essentials">Essentials</button>
+            </div>
+            
+            <!-- Product Grid -->
+            <div id="productGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+                <!-- Grooming Products -->
+                <div class="product-card rounded-xl overflow-hidden bg-white/5 group" data-category="grooming">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="https://picsum.photos/seed/pro-clippers/400/400.jpg" alt="Pro Grade Clippers" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-4">
+                        <span class="text-xs text-ffyellow/80 uppercase">Grooming</span>
+                        <h3 class="font-semibold mt-1 mb-1">Pro Grade Clippers</h3>
+                        <p class="text-white/50 text-xs mb-2">Cordless, lithium battery, 4 guide combs</p>
+                        <div class="flex items-center justify-between">
+                            <p class="text-ffyellow font-bold">$39.99</p>
+                            <a href="https://wa.me/14105551234?text=I'm interested in the Pro Grade Clippers" target="_blank" class="p-2 bg-ffyellow/10 hover:bg-ffyellow/20 rounded-lg transition-colors">
+                                <i data-lucide="message-circle" class="w-4 h-4 text-ffyellow"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card rounded-xl overflow-hidden bg-white/5 group" data-category="grooming">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="https://picsum.photos/seed/beard-trimmer/400/400.jpg" alt="Beard Trimmer" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-4">
+                        <span class="text-xs text-ffyellow/80 uppercase">Grooming</span>
+                        <h3 class="font-semibold mt-1 mb-1">Beard Trimmer</h3>
+                        <p class="text-white/50 text-xs mb-2">Precision blades, USB charging, LED display</p>
+                        <div class="flex items-center justify-between">
+                            <p class="text-ffyellow font-bold">$24.99</p>
+                            <a href="https://wa.me/14105551234?text=I'm interested in the Beard Trimmer" target="_blank" class="p-2 bg-ffyellow/10 hover:bg-ffyellow/20 rounded-lg transition-colors">
+                                <i data-lucide="message-circle" class="w-4 h-4 text-ffyellow"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card rounded-xl overflow-hidden bg-white/5 group" data-category="grooming">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="https://picsum.photos/seed/hair-brush/400/400.jpg" alt="Detangling Brush" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-4">
+                        <span class="text-xs text-ffyellow/80 uppercase">Grooming</span>
+                        <h3 class="font-semibold mt-1 mb-1">Detangling Brush</h3>
+                        <p class="text-white/50 text-xs mb-2">Gentle on hair, ergonomic handle</p>
+                        <div class="flex items-center justify-between">
+                            <p class="text-ffyellow font-bold">$12.99</p>
+                            <a href="https://wa.me/14105551234?text=I'm interested in the Detangling Brush" target="_blank" class="p-2 bg-ffyellow/10 hover:bg-ffyellow/20 rounded-lg transition-colors">
+                                <i data-lucide="message-circle" class="w-4 h-4 text-ffyellow"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Small Appliances -->
+                <div class="product-card rounded-xl overflow-hidden bg-white/5 group" data-category="appliances">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="https://picsum.photos/seed/mini-fan/400/400.jpg" alt="Mini Desk Fan" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-4">
+                        <span class="text-xs text-ffyellow/80 uppercase">Appliance</span>
+                        <h3 class="font-semibold mt-1 mb-1">Mini Desk Fan</h3>
+                        <p class="text-white/50 text-xs mb-2">3 speeds, USB powered, quiet operation</p>
+                        <div class="flex items-center justify-between">
+                            <p class="text-ffyellow font-bold">$14.99</p>
+                            <a href="https://wa.me/14105551234?text=I'm interested in the Mini Desk Fan" target="_blank" class="p-2 bg-ffyellow/10 hover:bg-ffyellow/20 rounded-lg transition-colors">
+                                <i data-lucide="message-circle" class="w-4 h-4 text-ffyellow"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card rounded-xl overflow-hidden bg-white/5 group" data-category="appliances">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="https://picsum.photos/seed/usb-light/400/400.jpg" alt="LED Desk Light" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-4">
+                        <span class="text-xs text-ffyellow/80 uppercase">Appliance</span>
+                        <h3 class="font-semibold mt-1 mb-1">LED Desk Light</h3>
+                        <p class="text-white/50 text-xs mb-2">Touch control, 3 brightness levels, USB</p>
+                        <div class="flex items-center justify-between">
+                            <p class="text-ffyellow font-bold">$18.99</p>
+                            <a href="https://wa.me/14105551234?text=I'm interested in the LED Desk Light" target="_blank" class="p-2 bg-ffyellow/10 hover:bg-ffyellow/20 rounded-lg transition-colors">
+                                <i data-lucide="message-circle" class="w-4 h-4 text-ffyellow"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card rounded-xl overflow-hidden bg-white/5 group" data-category="appliances">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="https://picsum.photos/seed/portable-charger/400/400.jpg" alt="Portable Charger" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-4">
+                        <span class="text-xs text-ffyellow/80 uppercase">Appliance</span>
+                        <h3 class="font-semibold mt-1 mb-1">Portable Charger</h3>
+                        <p class="text-white/50 text-xs mb-2">10000mAh, dual USB, fast charging</p>
+                        <div class="flex items-center justify-between">
+                            <p class="text-ffyellow font-bold">$22.99</p>
+                            <a href="https://wa.me/14105551234?text=I'm interested in the Portable Charger" target="_blank" class="p-2 bg-ffyellow/10 hover:bg-ffyellow/20 rounded-lg transition-colors">
+                                <i data-lucide="message-circle" class="w-4 h-4 text-ffyellow"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Oral Care -->
+                <div class="product-card rounded-xl overflow-hidden bg-white/5 group" data-category="oral">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="https://picsum.photos/seed/electric-toothbrush/400/400.jpg" alt="Electric Toothbrush" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-4">
+                        <span class="text-xs text-ffyellow/80 uppercase">Oral Care</span>
+                        <h3 class="font-semibold mt-1 mb-1">Electric Toothbrush</h3>
+                        <p class="text-white/50 text-xs mb-2">5 modes, 2-minute timer, 8 brush heads</p>
+                        <div class="flex items-center justify-between">
+                            <p class="text-ffyellow font-bold">$19.99</p>
+                            <a href="https://wa.me/14105551234?text=I'm interested in the Electric Toothbrush" target="_blank" class="p-2 bg-ffyellow/10 hover:bg-ffyellow/20 rounded-lg transition-colors">
+                                <i data-lucide="message-circle" class="w-4 h-4 text-ffyellow"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card rounded-xl overflow-hidden bg-white/5 group" data-category="oral">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="https://picsum.photos/seed/water-flosser/400/400.jpg" alt="Water Flosser" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-4">
+                        <span class="text-xs text-ffyellow/80 uppercase">Oral Care</span>
+                        <h3 class="font-semibold mt-1 mb-1">Water Flosser</h3>
+                        <p class="text-white/50 text-xs mb-2">Portable, USB rechargeable, 4 tips included</p>
+                        <div class="flex items-center justify-between">
+                            <p class="text-ffyellow font-bold">$16.99</p>
+                            <a href="https://wa.me/14105551234?text=I'm interested in the Water Flosser" target="_blank" class="p-2 bg-ffyellow/10 hover:bg-ffyellow/20 rounded-lg transition-colors">
+                                <i data-lucide="message-circle" class="w-4 h-4 text-ffyellow"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Essentials -->
+                <div class="product-card rounded-xl overflow-hidden bg-white/5 group" data-category="essentials">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="https://picsum.photos/seed/phone-case/400/400.jpg" alt="Phone Case" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-4">
+                        <span class="text-xs text-ffyellow/80 uppercase">Essentials</span>
+                        <h3 class="font-semibold mt-1 mb-1">Phone Case</h3>
+                        <p class="text-white/50 text-xs mb-2">Shockproof, clear design, multiple models</p>
+                        <div class="flex items-center justify-between">
+                            <p class="text-ffyellow font-bold">$9.99</p>
+                            <a href="https://wa.me/14105551234?text=I'm interested in the Phone Case" target="_blank" class="p-2 bg-ffyellow/10 hover:bg-ffyellow/20 rounded-lg transition-colors">
+                                <i data-lucide="message-circle" class="w-4 h-4 text-ffyellow"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card rounded-xl overflow-hidden bg-white/5 group" data-category="essentials">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="https://picsum.photos/seed/cable-set/400/400.jpg" alt="Cable Set" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-4">
+                        <span class="text-xs text-ffyellow/80 uppercase">Essentials</span>
+                        <h3 class="font-semibold mt-1 mb-1">Cable Set (3-Pack)</h3>
+                        <p class="text-white/50 text-xs mb-2">USB-C, Lightning, Micro USB, 6ft length</p>
+                        <div class="flex items-center justify-between">
+                            <p class="text-ffyellow font-bold">$12.99</p>
+                            <a href="https://wa.me/14105551234?text=I'm interested in the Cable Set" target="_blank" class="p-2 bg-ffyellow/10 hover:bg-ffyellow/20 rounded-lg transition-colors">
+                                <i data-lucide="message-circle" class="w-4 h-4 text-ffyellow"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card rounded-xl overflow-hidden bg-white/5 group" data-category="essentials">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="https://picsum.photos/seed/organizer-bag/400/400.jpg" alt="Tech Organizer" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-4">
+                        <span class="text-xs text-ffyellow/80 uppercase">Essentials</span>
+                        <h3 class="font-semibold mt-1 mb-1">Tech Organizer</h3>
+                        <p class="text-white/50 text-xs mb-2">Waterproof, multiple pockets, compact</p>
+                        <div class="flex items-center justify-between">
+                            <p class="text-ffyellow font-bold">$14.99</p>
+                            <a href="https://wa.me/14105551234?text=I'm interested in the Tech Organizer" target="_blank" class="p-2 bg-ffyellow/10 hover:bg-ffyellow/20 rounded-lg transition-colors">
+                                <i data-lucide="message-circle" class="w-4 h-4 text-ffyellow"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card rounded-xl overflow-hidden bg-white/5 group" data-category="essentials">
+                    <div class="aspect-square overflow-hidden">
+                        <img src="https://picsum.photos/seed/hand-sanitizer/400/400.jpg" alt="Hand Sanitizer Set" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-4">
+                        <span class="text-xs text-ffyellow/80 uppercase">Essentials</span>
+                        <h3 class="font-semibold mt-1 mb-1">Hand Sanitizer Set</h3>
+                        <p class="text-white/50 text-xs mb-2">3-pack, 75% alcohol, aloe vera</p>
+                        <div class="flex items-center justify-between">
+                            <p class="text-ffyellow font-bold">$7.99</p>
+                            <a href="https://wa.me/14105551234?text=I'm interested in the Hand Sanitizer Set" target="_blank" class="p-2 bg-ffyellow/10 hover:bg-ffyellow/20 rounded-lg transition-colors">
+                                <i data-lucide="message-circle" class="w-4 h-4 text-ffyellow"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BUNDLE BUILDER SECTION -->
+    <section id="bundles" class="page-section min-h-screen pt-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-16">
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <div class="inline-flex items-center space-x-2 px-4 py-2 bg-ffyellow/10 border border-ffyellow/30 rounded-full mb-4">
+                    <i data-lucide="package" class="w-4 h-4 text-ffyellow"></i>
+                    <span class="text-ffyellow text-sm font-medium">Save More with Bundles</span>
+                </div>
+                <h1 class="font-space text-4xl md:text-5xl font-bold mb-4">Build Your <span class="text-ffyellow">Custom Bundle</span></h1>
+                <p class="text-white/60 text-lg max-w-2xl mx-auto">Mix and match products to create your perfect bundle. Save up to 20% when you bundle!</p>
+            </div>
+            
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Product Selection -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+                        <h2 class="font-space text-xl font-bold mb-4 flex items-center space-x-2">
+                            <i data-lucide="shopping-bag" class="w-5 h-5 text-ffyellow"></i>
+                            <span>Select Products</span>
+                        </h2>
+                        <p class="text-white/50 text-sm mb-6">Choose 3 or more items to create your bundle</p>
+                        
+                        <div class="space-y-3" id="bundleItems">
+                            <div class="bundle-item flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10" data-name="Pro Grade Clippers" data-price="39.99">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 rounded-lg bg-ffyellow/10 flex items-center justify-center">
+                                        <i data-lucide="scissors" class="w-5 h-5 text-ffyellow"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-medium text-sm">Pro Grade Clippers</h3>
+                                        <p class="text-white/50 text-xs">Grooming</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-ffyellow font-bold text-sm">$39.99</span>
+                                    <div class="w-6 h-6 rounded-full border-2 border-white/30 flex items-center justify-center bundle-check">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bundle-item flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10" data-name="Beard Trimmer" data-price="24.99">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 rounded-lg bg-ffyellow/10 flex items-center justify-center">
+                                        <i data-lucide="scissors" class="w-5 h-5 text-ffyellow"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-medium text-sm">Beard Trimmer</h3>
+                                        <p class="text-white/50 text-xs">Grooming</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-ffyellow font-bold text-sm">$24.99</span>
+                                    <div class="w-6 h-6 rounded-full border-2 border-white/30 flex items-center justify-center bundle-check">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bundle-item flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10" data-name="Electric Toothbrush" data-price="19.99">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 rounded-lg bg-ffyellow/10 flex items-center justify-center">
+                                        <i data-lucide="sparkles" class="w-5 h-5 text-ffyellow"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-medium text-sm">Electric Toothbrush</h3>
+                                        <p class="text-white/50 text-xs">Oral Care</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-ffyellow font-bold text-sm">$19.99</span>
+                                    <div class="w-6 h-6 rounded-full border-2 border-white/30 flex items-center justify-center bundle-check">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bundle-item flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10" data-name="Mini Desk Fan" data-price="14.99">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 rounded-lg bg-ffyellow/10 flex items-center justify-center">
+                                        <i data-lucide="fan" class="w-5 h-5 text-ffyellow"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-medium text-sm">Mini Desk Fan</h3>
+                                        <p class="text-white/50 text-xs">Appliance</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-ffyellow font-bold text-sm">$14.99</span>
+                                    <div class="w-6 h-6 rounded-full border-2 border-white/30 flex items-center justify-center bundle-check">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bundle-item flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10" data-name="Portable Charger" data-price="22.99">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 rounded-lg bg-ffyellow/10 flex items-center justify-center">
+                                        <i data-lucide="battery-charging" class="w-5 h-5 text-ffyellow"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-medium text-sm">Portable Charger</h3>
+                                        <p class="text-white/50 text-xs">Appliance</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-ffyellow font-bold text-sm">$22.99</span>
+                                    <div class="w-6 h-6 rounded-full border-2 border-white/30 flex items-center justify-center bundle-check">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bundle-item flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10" data-name="Cable Set (3-Pack)" data-price="12.99">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 rounded-lg bg-ffyellow/10 flex items-center justify-center">
+                                        <i data-lucide="cable" class="w-5 h-5 text-ffyellow"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-medium text-sm">Cable Set (3-Pack)</h3>
+                                        <p class="text-white/50 text-xs">Essentials</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-ffyellow font-bold text-sm">$12.99</span>
+                                    <div class="w-6 h-6 rounded-full border-2 border-white/30 flex items-center justify-center bundle-check">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- FreshWave Scents -->
+                            <div class="mt-6 pt-6 border-t border-white/10">
+                                <h3 class="font-semibold text-sm text-fwgreen mb-3 flex items-center space-x-2">
+                                    <i data-lucide="flower-2" class="w-4 h-4"></i>
+                                    <span>Add FreshWave Scents</span>
+                                </h3>
+                            </div>
+                            
+                            <div class="bundle-item freshwave-item flex items-center justify-between p-4 rounded-xl bg-fwgreen/5 border border-fwgreen/20" data-name="FreshWave - Lemongrass" data-price="8.99">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 rounded-lg bg-fwgreen/10 flex items-center justify-center">
+                                        <i data-lucide="flower-2" class="w-5 h-5 text-fwgreen"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-medium text-sm">FreshWave - Lemongrass</h3>
+                                        <p class="text-white/50 text-xs">Car Freshener</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-fwgreen font-bold text-sm">$8.99</span>
+                                    <div class="w-6 h-6 rounded-full border-2 border-fwgreen/30 flex items-center justify-center bundle-check">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bundle-item freshwave-item flex items-center justify-between p-4 rounded-xl bg-fwgreen/5 border border-fwgreen/20" data-name="FreshWave - Ocean Breeze" data-price="8.99">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 rounded-lg bg-fwgreen/10 flex items-center justify-center">
+                                        <i data-lucide="flower-2" class="w-5 h-5 text-fwgreen"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-medium text-sm">FreshWave - Ocean Breeze</h3>
+                                        <p class="text-white/50 text-xs">Car Freshener</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-fwgreen font-bold text-sm">$8.99</span>
+                                    <div class="w-6 h-6 rounded-full border-2 border-fwgreen/30 flex items-center justify-center bundle-check">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bundle-item freshwave-item flex items-center justify-between p-4 rounded-xl bg-fwgreen/5 border border-fwgreen/20" data-name="FreshWave - Vanilla" data-price="8.99">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 rounded-lg bg-fwgreen/10 flex items-center justify-center">
+                                        <i data-lucide="flower-2" class="w-5 h-5 text-fwgreen"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-medium text-sm">FreshWave - Vanilla</h3>
+                                        <p class="text-white/50 text-xs">Car Freshener</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-fwgreen font-bold text-sm">$8.99</span>
+                                    <div class="w-6 h-6 rounded-full border-2 border-fwgreen/30 flex items-center justify-center bundle-check">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bundle Summary -->
+                <div class="lg:col-span-1">
+                    <div class="sticky top-24 space-y-6">
+                        <div class="bg-white/5 border border-ffyellow/30 rounded-2xl p-6 yellow-glow">
+                            <h2 class="font-space text-xl font-bold mb-4 flex items-center space-x-2">
+                                <i data-lucide="shopping-cart" class="w-5 h-5 text-ffyellow"></i>
+                                <span>Your Bundle</span>
+                            </h2>
+                            
+                            <div id="bundleSummary" class="space-y-2 mb-4 min-h-[100px]">
+                                <p class="text-white/50 text-sm text-center py-8">Select items to build your bundle</p>
+                            </div>
+                            
+                            <div class="border-t border-white/10 pt-4 space-y-2">
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-white/60">Subtotal</span>
+                                    <span id="bundleSubtotal" class="font-medium">$0.00</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-white/60">Bundle Discount</span>
+                                    <span id="bundleDiscount" class="text-green-400 font-medium">-$0.00</span>
+                                </div>
+                                <div class="flex justify-between text-lg font-bold pt-2 border-t border-white/10">
+                                    <span>Total</span>
+                                    <span id="bundleTotal" class="text-ffyellow">$0.00</span>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4 p-3 bg-ffyellow/10 rounded-lg">
+                                <p class="text-ffyellow text-xs font-medium">💡 3+ items = 10% off | 5+ items = 15% off</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Contact Form -->
+                        <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+                            <h3 class="font-semibold mb-4">Complete Your Bundle</h3>
+                            
+                            <form id="bundleForm" class="space-y-3">
+                                <input type="text" required class="form-input w-full px-4 py-3 rounded-lg text-white text-sm" placeholder="Your Name *">
+                                <input type="text" required class="form-input w-full px-4 py-3 rounded-lg text-white text-sm" placeholder="Phone or Email *">
+                                <textarea rows="3" class="form-input w-full px-4 py-3 rounded-lg text-white text-sm resize-none" placeholder="Special notes or requests..."></textarea>
+                                
+                                <div class="space-y-2">
+                                    <label class="block text-sm font-medium">Delivery Option</label>
+                                    <label class="flex items-center space-x-3 p-3 rounded-lg bg-white/5 border border-white/10 cursor-pointer hover:border-ffyellow/30 transition-colors">
+                                        <input type="radio" name="delivery" value="local" checked class="accent-ffyellow">
+                                        <div>
+                                            <span class="text-sm font-medium">Local Delivery</span>
+                                            <p class="text-white/50 text-xs">Free over $25</p>
+                                        </div>
+                                    </label>
+                                    <label class="flex items-center space-x-3 p-3 rounded-lg bg-white/5 border border-white/10 cursor-pointer hover:border-ffyellow/30 transition-colors">
+                                        <input type="radio" name="delivery" value="pickup" class="accent-ffyellow">
+                                        <div>
+                                            <span class="text-sm font-medium">Pickup</span>
+                                            <p class="text-white/50 text-xs">Dundalk location</p>
+                                        </div>
+                                    </label>
+                                </div>
+                                
+                                <button type="submit" class="w-full flex items-center justify-center space-x-2 px-6 py-4 bg-ffyellow hover:bg-ffyellowdark text-ffblack font-semibold rounded-xl transition-all hover:scale-[1.02]">
+                                    <i data-lucide="send" class="w-5 h-5"></i>
+                                    <span>Send Bundle Request</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="page-section min-h-screen pt-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-16">
+            <!-- Header -->
+            <div class="text-center mb-16">
+                <span class="text-ffyellow text-sm font-semibold uppercase tracking-wider">Our Story</span>
+                <h1 class="font-space text-4xl md:text-5xl font-bold mt-2 mb-4">About <span class="text-ffyellow">FastFlipDepot</span></h1>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+                <div>
+                    <div class="aspect-square rounded-2xl overflow-hidden border-2 border-ffyellow/20">
+                        <img src="https://picsum.photos/seed/baltimore-store/800/800.jpg" alt="FastFlipDepot Baltimore" class="w-full h-full object-cover">
+                    </div>
+                </div>
+                
+                <div class="space-y-6">
+                    <h2 class="font-space text-3xl font-bold">Built in Baltimore,<br>For Baltimore</h2>
+                    
+                    <p class="text-white/60 text-lg leading-relaxed">
+                        FastFlipDepot started with a simple idea: bring quality products to our community at prices that make sense. As a local Baltimore and Dundalk business, we understand what our neighbors need—fast-moving essentials that don't break the bank.
+                    </p>
+                    
+                    <p class="text-white/60 leading-relaxed">
+                        From grooming tools to small appliances, we handpick every product for quality and value. Our FreshWave Scents line was born from the desire to offer something unique—custom car air fresheners that actually smell amazing and last.
+                    </p>
+                    
+                    <p class="text-white/60 leading-relaxed">
+                        We're not just another online store. We're at local flea markets, we're live on Whatnot, and we're always just a WhatsApp message away. That's the FastFlip difference.
+                    </p>
+                    
+                    <div class="grid grid-cols-3 gap-4 pt-6 border-t border-white/10">
+                        <div class="text-center">
+                            <div class="font-space text-3xl font-bold text-ffyellow">500+</div>
+                            <p class="text-white/50 text-sm mt-1">Happy Customers</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="font-space text-3xl font-bold text-ffyellow">20+</div>
+                            <p class="text-white/50 text-sm mt-1">Scent Options</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="font-space text-3xl font-bold text-ffyellow">100%</div>
+                            <p class="text-white/50 text-sm mt-1">Local Focus</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Values -->
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white/5 border border-white/10 rounded-xl p-8">
+                    <div class="w-12 h-12 rounded-xl bg-ffyellow/10 flex items-center justify-center mb-4">
+                        <i data-lucide="shield-check" class="w-6 h-6 text-ffyellow"></i>
+                    </div>
+                    <h3 class="font-space text-xl font-bold mb-3">Quality First</h3>
+                    <p class="text-white/60">Every product is tested and verified before it makes it to our inventory. No junk, no exceptions.</p>
+                </div>
+                
+                <div class="bg-white/5 border border-white/10 rounded-xl p-8">
+                    <div class="w-12 h-12 rounded-xl bg-ffyellow/10 flex items-center justify-center mb-4">
+                        <i data-lucide="heart" class="w-6 h-6 text-ffyellow"></i>
+                    </div>
+                    <h3 class="font-space text-xl font-bold mb-3">Community Focused</h3>
+                    <p class="text-white/60">We're your neighbors. Supporting local means supporting each other, and that drives everything we do.</p>
+                </div>
+                
+                <div class="bg-white/5 border border-white/10 rounded-xl p-8">
+                    <div class="w-12 h-12 rounded-xl bg-ffyellow/10 flex items-center justify-center mb-4">
+                        <i data-lucide="zap" class="w-6 h-6 text-ffyellow"></i>
+                    </div>
+                    <h3 class="font-space text-xl font-bold mb-3">Fast & Reliable</h3>
+                    <p class="text-white/60">FastFlip isn't just our name—it's our promise. Quick responses, fast delivery, no waiting around.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="page-section min-h-screen pt-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-16">
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <span class="text-ffyellow text-sm font-semibold uppercase tracking-wider">Get In Touch</span>
+                <h1 class="font-space text-4xl md:text-5xl font-bold mt-2 mb-4">Contact <span class="text-ffyellow">Us</span></h1>
+                <p class="text-white/60 text-lg max-w-2xl mx-auto">Have a question, want to place an order, or need a custom bundle? Reach out anytime!</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-16">
+                <!-- Contact Methods -->
+                <div class="space-y-4">
+                    <a href="https://wa.me/14105551234" target="_blank" class="flex items-center space-x-4 p-6 rounded-xl bg-green-500/10 border border-green-500/30 hover:bg-green-500/20 transition-colors group">
+                        <div class="w-12 h-12 rounded-xl bg-green-500 flex items-center justify-center flex-shrink-0">
+                            <i data-lucide="message-circle" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-lg">WhatsApp</h3>
+                            <p class="text-white/60 text-sm">Fastest way to reach us - usually respond within minutes</p>
+                        </div>
+                        <i data-lucide="arrow-up-right" class="w-5 h-5 text-white/40 group-hover:text-white transition-colors ml-auto"></i>
+                    </a>
+                    
+                    <a href="mailto:info@fastflipdepot.com" class="flex items-center space-x-4 p-6 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors group">
+                        <div class="w-12 h-12 rounded-xl bg-ffyellow flex items-center justify-center flex-shrink-0">
+                            <i data-lucide="mail" class="w-6 h-6 text-ffblack"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-lg">Email</h3>
+                            <p class="text-white/60 text-sm">info@fastflipdepot.com</p>
+                        </div>
+                        <i data-lucide="arrow-up-right" class="w-5 h-5 text-white/40 group-hover:text-white transition-colors ml-auto"></i>
+                    </a>
+                    
+                    <a href="https://www.whatnot.com" target="_blank" class="flex items-center space-x-4 p-6 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors group">
+                        <div class="w-12 h-12 rounded-xl bg-purple-500 flex items-center justify-center flex-shrink-0">
+                            <i data-lucide="shopping-bag" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-lg">Whatnot</h3>
+                            <p class="text-white/60 text-sm">Catch us live and grab deals in real-time</p>
+                        </div>
+                        <i data-lucide="arrow-up-right" class="w-5 h-5 text-white/40 group-hover:text-white transition-colors ml-auto"></i>
+                    </a>
+                    
+                    <!-- Social Media -->
+                    <div class="p-6 rounded-xl bg-white/5 border border-white/10">
+                        <h3 class="font-semibold mb-4">Follow Us</h3>
+                        <div class="flex space-x-3">
+                            <a href="#" class="w-12 h-12 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors">
+                                <i data-lucide="instagram" class="w-5 h-5"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors">
+                                <i data-lucide="facebook" class="w-5 h-5"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors">
+                                <i data-lucide="twitter" class="w-5 h-5"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors">
+                                <i data-lucide="youtube" class="w-5 h-5"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <div class="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8">
+                    <h2 class="font-space text-xl font-bold mb-6">Send a Message</h2>
+                    
+                    <form id="contactForm" class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium mb-2">First Name *</label>
+                                <input type="text" required class="form-input w-full px-4 py-3 rounded-lg text-white" placeholder="John">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Last Name *</label>
+                                <input type="text" required class="form-input w-full px-4 py-3 rounded-lg text-white" placeholder="Doe">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Email or Phone *</label>
+                            <input type="text" required class="form-input w-full px-4 py-3 rounded-lg text-white" placeholder="your@email.com or (410) 555-1234">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Subject</label>
+                            <select class="form-input w-full px-4 py-3 rounded-lg text-white">
+                                <option value="general">General Inquiry</option>
+                                <option value="order">Place an Order</option>
+                                <option value="bundle">Custom Bundle Request</option>
+                                <option value="freshwave">FreshWave Scents</option>
+                                <option value="delivery">Delivery Question</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Message *</label>
+                            <textarea required rows="5" class="form-input w-full px-4 py-3 rounded-lg text-white resize-none" placeholder="How can we help you?"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full flex items-center justify-center space-x-2 px-8 py-4 bg-ffyellow hover:bg-ffyellowdark text-ffblack font-semibold rounded-xl transition-all hover:scale-[1.02]">
+                            <i data-lucide="send" class="w-5 h-5"></i>
+                            <span>Send Message</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Delivery Zones -->
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-8">
+                <div class="flex items-center space-x-3 mb-6">
+                    <i data-lucide="map-pin" class="w-6 h-6 text-ffyellow"></i>
+                    <h2 class="font-space text-2xl font-bold">Local Delivery Zones</h2>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                    <div class="p-4 rounded-xl bg-ffyellow/5 border border-ffyellow/20 text-center">
+                        <div class="text-2xl mb-2">🏙️</div>
+                        <h3 class="font-semibold text-sm">Baltimore City</h3>
+                        <p class="text-white/50 text-xs mt-1">Free over $25</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-ffyellow/5 border border-ffyellow/20 text-center">
+                        <div class="text-2xl mb-2">🏠</div>
+                        <h3 class="font-semibold text-sm">Dundalk</h3>
+                        <p class="text-white/50 text-xs mt-1">Free over $25</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-ffyellow/5 border border-ffyellow/20 text-center">
+                        <div class="text-2xl mb-2">🏘️</div>
+                        <h3 class="font-semibold text-sm">Essex</h3>
+                        <p class="text-white/50 text-xs mt-1">Free over $25</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-ffyellow/5 border border-ffyellow/20 text-center">
+                        <div class="text-2xl mb-2">🌊</div>
+                        <h3 class="font-semibold text-sm">Middle River</h3>
+                        <p class="text-white/50 text-xs mt-1">Free over $25</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-ffyellow/5 border border-ffyellow/20 text-center">
+                        <div class="text-2xl mb-2">🌳</div>
+                        <h3 class="font-semibold text-sm">Rosedale</h3>
+                        <p class="text-white/50 text-xs mt-1">Free over $25</p>
+                    </div>
+                </div>
+                
+                <p class="text-white/50 text-sm mt-4 text-center">Don't see your area? Contact us - we may still be able to deliver!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-white/5 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+                <!-- Brand -->
+                <div class="col-span-2 md:col-span-1">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-8 h-8 bg-ffyellow rounded-lg flex items-center justify-center">
+                            <i data-lucide="zap" class="w-5 h-5 text-ffblack"></i>
+                        </div>
+                        <span class="font-space font-bold text-lg">FastFlip<span class="text-ffyellow">Depot</span></span>
+                    </div>
+                    <p class="text-white/50 text-sm mb-4">Baltimore's destination for fast-moving essentials and custom car fresheners.</p>
+                    <div class="flex space-x-2">
+                        <a href="#" class="w-9 h-9 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors">
+                            <i data-lucide="instagram" class="w-4 h-4"></i>
+                        </a>
+                        <a href="#" class="w-9 h-9 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors">
+                            <i data-lucide="facebook" class="w-4 h-4"></i>
+                        </a>
+                        <a href="#" class="w-9 h-9 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors">
+                            <i data-lucide="twitter" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-white/50 hover:text-ffyellow text-sm transition-colors">Home</a></li>
+                        <li><a href="#freshwave" class="text-white/50 hover:text-fwgreen text-sm transition-colors">FreshWave Scents</a></li>
+                        <li><a href="#products" class="text-white/50 hover:text-ffyellow text-sm transition-colors">Products</a></li>
+                        <li><a href="#bundles" class="text-white/50 hover:text-ffyellow text-sm transition-colors">Build a Bundle</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Company -->
+                <div>
+                    <h3 class="font-semibold mb-4">Company</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#about" class="text-white/50 hover:text-ffyellow text-sm transition-colors">About Us</a></li>
+                        <li><a href="#contact" class="text-white/50 hover:text-ffyellow text-sm transition-colors">Contact</a></li>
+                        <li><a href="https://www.whatnot.com" target="_blank" class="text-white/50 hover:text-ffyellow text-sm transition-colors">Whatnot Shop</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact -->
+                <div>
+                    <h3 class="font-semibold mb-4">Contact</h3>
+                    <ul class="space-y-2">
+                        <li><a href="https://wa.me/14105551234" class="text-green-400 hover:text-green-300 text-sm transition-colors flex items-center space-x-1"><i data-lucide="message-circle" class="w-3 h-3"></i><span>WhatsApp</span></a></li>
+                        <li><a href="mailto:info@fastflipdepot.com" class="text-white/50 hover:text-ffyellow text-sm transition-colors">info@fastflipdepot.com</a></li>
+                        <li><span class="text-white/50 text-sm">Baltimore, MD</span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                <p class="text-white/40 text-sm">© 2024 FastFlipDepot. All rights reserved.</p>
+                <p class="text-white/40 text-sm">Made with ⚡ in Baltimore</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/14105551234?text=Hi! I'm interested in FastFlipDepot products." target="_blank" class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-green-500 hover:bg-green-600 rounded-full flex items-center justify-center whatsapp-pulse transition-colors shadow-2xl">
+        <i data-lucide="message-circle" class="w-7 h-7 text-white"></i>
+    </a>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast fixed bottom-24 right-6 z-50 bg-white text-ffblack px-6 py-4 rounded-xl shadow-2xl max-w-sm">
+        <div class="flex items-center space-x-3">
+            <i data-lucide="check-circle" class="w-5 h-5 text-green-500 flex-shrink-0"></i>
+            <span id="toastMessage" class="text-sm font-medium">Message sent successfully!</span>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+        
+        // Mobile Menu
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const closeMobileMenu = document.getElementById('closeMobileMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+        
+        function openMobileMenu() {
+            mobileMenu.classList.add('open');
+            mobileOverlay.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeMobileMenuFn() {
+            mobileMenu.classList.remove('open');
+            mobileOverlay.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+        
+        mobileMenuBtn.addEventListener('click', openMobileMenu);
+        closeMobileMenu.addEventListener('click', closeMobileMenuFn);
+        mobileOverlay.addEventListener('click', closeMobileMenuFn);
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', closeMobileMenuFn);
+        });
+        
+        // Scroll Progress Bar
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.getElementById('scrollProgress').style.width = scrollPercent + '%';
+        });
+        
+        // Page Section Visibility
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.page-section').forEach(section => {
+            observer.observe(section);
+        });
+        
+        // Product Category Filter
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const productCards = document.querySelectorAll('#productGrid .product-card');
+        
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                categoryBtns.forEach(b => {
+                    b.classList.remove('active');
+                    b.classList.add('text-white/70');
+                });
+                btn.classList.add('active');
+                btn.classList.remove('text-white/70');
+                
+                const category = btn.dataset.category;
+                
+                productCards.forEach(card => {
+                    if (category === 'all' || card.dataset.category === category) {
+                        card.style.display = '';
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(10px)';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 50);
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Bundle Builder
+        const bundleItems = document.querySelectorAll('.bundle-item');
+        let selectedBundleItems = [];
+        
+        bundleItems.forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.toggle('selected');
+                const check = item.querySelector('.bundle-check');
+                const name = item.dataset.name;
+                const price = parseFloat(item.dataset.price);
+                
+                if (item.classList.contains('selected')) {
+                    check.innerHTML = '<i data-lucide="check" class="w-4 h-4 text-ffyellow"></i>';
+                    if (item.classList.contains('freshwave-item')) {
+                        check.querySelector('i').classList.remove('text-ffyellow');
+                        check.querySelector('i').classList.add('text-fwgreen');
+                    }
+                    selectedBundleItems.push({ name, price });
+                } else {
+                    check.innerHTML = '';
+                    selectedBundleItems = selectedBundleItems.filter(i => i.name !== name);
+                }
+                
+                lucide.createIcons();
+                updateBundleSummary();
+            });
+        });
+        
+        function updateBundleSummary() {
+            const summary = document.getElementById('bundleSummary');
+            const subtotalEl = document.getElementById('bundleSubtotal');
+            const discountEl = document.getElementById('bundleDiscount');
+            const totalEl = document.getElementById('bundleTotal');
+            
+            if (selectedBundleItems.length === 0) {
+                summary.innerHTML = '<p class="text-white/50 text-sm text-center py-8">Select items to build your bundle</p>';
+                subtotalEl.textContent = '$0.00';
+                discountEl.textContent = '-$0.00';
+                totalEl.textContent = '$0.00';
+                return;
+            }
+            
+            const subtotal = selectedBundleItems.reduce((sum, item) => sum + item.price, 0);
+            let discountPercent = 0;
+            
+            if (selectedBundleItems.length >= 5) {
+                discountPercent = 0.15;
+            } else if (selectedBundleItems.length >= 3) {
+                discountPercent = 0.10;
+            }
+            
+            const discount = subtotal * discountPercent;
+            const total = subtotal - discount;
+            
+            summary.innerHTML = selectedBundleItems.map(item => `
+                <div class="flex justify-between items-center text-sm">
+                    <span class="text-white/70">${item.name}</span>
+                    <span class="font-medium">$${item.price.toFixed(2)}</span>
+                </div>
+            `).join('');
+            
+            subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
+            discountEl.textContent = `-$${discount.toFixed(2)}`;
+            totalEl.textContent = `$${total.toFixed(2)}`;
+        }
+        
+        // Form Submissions
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+        
+        // FreshWave Form
+        document.getElementById('freshwaveForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const name = formData.get('0') || e.target.querySelector('input[type="text"]').value;
+            const contact = e.target.querySelectorAll('input[type="text"]')[1].value;
+            const scent = e.target.querySelector('textarea').value;
+            const quantity = e.target.querySelector('select').value;
+            
+            const message = `🌿 FreshWave Custom Scent Request\n\nName: ${name}\nContact: ${contact}\nCustom Scent: ${scent}\nQuantity: ${quantity}`;
+            
+            const whatsappUrl = `https://wa.me/14105551234?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+            showToast('Opening WhatsApp with your request...');
+            e.target.reset();
+        });
+        
+        // Bundle Form
+        document.getElementById('bundleForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            if (selectedBundleItems.length === 0) {
+                showToast('Please select at least one item for your bundle');
+                return;
+            }
+            
+            const inputs = e.target.querySelectorAll('input, textarea');
+            const name = inputs[0].value;
+            const contact = inputs[1].value;
+            const notes = inputs[2].value;
+            const delivery = e.target.querySelector('input[name="delivery"]:checked').value;
+            
+            const subtotal = selectedBundleItems.reduce((sum, item) => sum + item.price, 0);
+            let discountPercent = selectedBundleItems.length >= 5 ? 0.15 : selectedBundleItems.length >= 3 ? 0.10 : 0;
+            const total = subtotal * (1 - discountPercent);
+            
+            const itemsList = selectedBundleItems.map(item => `• ${item.name} - $${item.price.toFixed(2)}`).join('\n');
+            
+            const message = `📦 Custom Bundle Request\n\nName: ${name}\nContact: ${contact}\nDelivery: ${delivery === 'local' ? 'Local Delivery' : 'Pickup'}\n\nItems:\n${itemsList}\n\nSubtotal: $${subtotal.toFixed(2)}\nDiscount: ${discountPercent * 100}%\nTotal: $${total.toFixed(2)}\n\nNotes: ${notes || 'None'}`;
+            
+            const whatsappUrl = `https://wa.me/14105551234?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+            showToast('Opening WhatsApp with your bundle request...');
+        });
+        
+        // Contact Form
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const inputs = e.target.querySelectorAll('input, select, textarea');
+            const firstName = inputs[0].value;
+            const lastName = inputs[1].value;
+            const contact = inputs[2].value;
+            const subject = inputs[3].value;
+            const message = inputs[4].value;
+            
+            const subjectMap = {
+                'general': 'General Inquiry',
+                'order': 'Place an Order',
+                'bundle': 'Custom Bundle Request',
+                'freshwave': 'FreshWave Scents',
+                'delivery': 'Delivery Question',
+                'other': 'Other'
+            };
+            
+            const whatsappMessage = `📩 Contact Form\n\nName: ${firstName} ${lastName}\nContact: ${contact}\nSubject: ${subjectMap[subject]}\n\nMessage: ${message}`;
+            
+            const whatsappUrl = `https://wa.me/14105551234?text=${encodeURIComponent(whatsappMessage)}`;
+            window.open(whatsappUrl, '_blank');
+            showToast('Opening WhatsApp with your message...');
+            e.target.reset();
+        });
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offset = 80;
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
